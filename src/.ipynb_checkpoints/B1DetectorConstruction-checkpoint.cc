@@ -147,7 +147,6 @@ G4VPhysicalVolume* B1DetectorConstruction::Construct()
 
   //     
   // Shape 2
-    
   //
   G4Material* shape2_mat = nist->FindOrBuildMaterial("G4_BONE_COMPACT_ICRU");
   G4ThreeVector pos2 = G4ThreeVector(0, -1*cm, 7*cm);
@@ -177,11 +176,6 @@ G4VPhysicalVolume* B1DetectorConstruction::Construct()
                 
   // Set Shape2 as scoring volume
   //
-  G4cout << ">>> Registrando detector sensible para Shape2..." << G4endl;
-  auto shape2SD = new B1SensitiveDetector("Shape2SD", "b1_hits.csv");
-  G4SDManager::GetSDMpointer()->AddNewDetector(shape2SD);
-  logicShape2->SetSensitiveDetector(shape2SD);
-    
   fScoringVolume = logicShape2;
 
   //
