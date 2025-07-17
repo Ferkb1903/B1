@@ -39,7 +39,8 @@
 #include "G4LogicalVolume.hh"
 #include "G4PVPlacement.hh"
 #include "G4SystemOfUnits.hh"
-
+#include "B1SensitiveDetector.hh"
+#include "G4SDManager.hh"
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 B1DetectorConstruction::B1DetectorConstruction()
@@ -147,6 +148,7 @@ G4VPhysicalVolume* B1DetectorConstruction::Construct()
 
   //     
   // Shape 2
+    
   //
   G4Material* shape2_mat = nist->FindOrBuildMaterial("G4_BONE_COMPACT_ICRU");
   G4ThreeVector pos2 = G4ThreeVector(0, -1*cm, 7*cm);
@@ -174,14 +176,20 @@ G4VPhysicalVolume* B1DetectorConstruction::Construct()
                     0,                       //copy number
                     checkOverlaps);          //overlaps checking
                 
-  // Set Shape2 as scoring volume
+//--------- Sensitive detectors -------------------------------------
   //
-  fScoringVolume = logicShape2;
-
+  // Creación del detector sensible
+  auto sdManager = G4SDManager::GetSDMpointer();
+  G4String sdName = "B1/Shape2SD";
+  auto shape2SD = new B1SensitiveDetector(sdName, "Shape2HitsCollection", "b1_hits.csv");
+  sdManager->AddNewDetector(shape2SD);
+  
+  // Asignación al volumen lógico
+  SetSensitiveDetector("Shape2", shape2SD);
+  
   //
   //always return the physical World
   //
   return physWorld;
 }
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

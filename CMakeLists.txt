@@ -25,13 +25,7 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 # --- ¡AÑADIMOS NUESTRO NUEVO ARCHIVO! ---
 set(sources ${sources} ${PROJECT_SOURCE_DIR}/src/B1SensitiveDetector.cc)
 set(headers ${headers} ${PROJECT_SOURCE_DIR}/include/B1SensitiveDetector.hh)
-#-----------------------------------------
-
-#----------------------------------------------------------------------------
-# Add the executable, and link it to the Geant4 libraries
-add_executable(exampleB1 exampleB1.cc ${sources} ${headers})
-target_link_libraries(exampleB1 ${Geant4_LIBRARIES})
-#----------------------------------------------------------------------------
+#-----------------------------------------s
 # Add the executable, and link it to the Geant4 libraries
 #
 add_executable(exampleB1 exampleB1.cc ${sources} ${headers})
